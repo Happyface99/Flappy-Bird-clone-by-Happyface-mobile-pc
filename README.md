@@ -11,4 +11,4 @@ If you use chrome/edge/or any Chromium browser  on IOS/ANDRIOD you dont need set
 
 
 
-  Samsung Galaxy Watch and Apple Watch Versions coming soon
+      Samsung Galaxy Watch and Apple Watch Versions coming soon
