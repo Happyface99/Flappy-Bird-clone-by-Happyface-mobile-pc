@@ -6,7 +6,7 @@ Enable JavaScript in Safari (iPhone/iPad)
 - Scroll to the bottom and tap Advanced.
 - Find the JavaScript toggle and make sure it’s ON (green).
 On Samsung Mobile/Tablet use Chrome to open it
-If you use chrome/edge/or any Chromium browser  on IOS/ANDROID you dont need settings
+If you use chrome/edge/or any Chromium browser  on IOS/ANDROID you don't need these settings
 
 
 
