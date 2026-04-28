@@ -1,14 +1,25 @@
-# Flappy bird by Happyface  mobile and pc press jump button on mobile and space bar for pc and hopefully you enjoyed this game 
-Note:you must enable Javascript on Safari
-Enable JavaScript in Safari (iPhone/iPad)
-- Open the Settings app.
-- Scroll down and tap Safari.
-- Scroll to the bottom and tap Advanced.
-- Find the JavaScript toggle and make sure it’s ON (green).
-On Samsung Mobile/Tablet use Chrome to open it
-If you use chrome/edge/or any Chromium browser  on IOS/ANDROID you don't need these settings
+# Flappy Bird Clone by Happyface
 
+## How to Enable JavaScript
 
+To play this game, make sure JavaScript is enabled in your browser:
 
+### Safari (iPhone/iPad)
+1. Open **Settings**.
+2. Scroll down and tap **Safari**.
+3. Tap **Advanced**.
+4. Turn **JavaScript** ON.
 
-      Samsung Galaxy Watch and Apple Watch Versions coming soon
+### Chrome / Edge / Firefox (PC or Mobile)
+- JavaScript is built in and enabled by default.
+- No settings changes are needed.
+
+### Samsung Internet Browser
+1. Open the browser.
+2. Tap **Menu → Settings → Advanced**.
+3. Make sure **JavaScript** is ON.
+
+## Coming Soon 🚀
+- Apple Watch (watchOS version)
+- Samsung Galaxy Watch (Tizen/Wear OS version)
+- Any smartwatch with an app store
