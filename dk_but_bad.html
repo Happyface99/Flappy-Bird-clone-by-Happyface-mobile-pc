@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DONKEY KONG BUT BAD MOBILE</title>
+    <style>
+        body { 
+            background: #000; margin: 0; overflow: hidden; 
+            touch-action: none; -webkit-user-select: none; 
+            display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; 
+            height: 100vh; font-family: 'Comic Sans MS', cursive; 
+        }
+        canvas { 
+            background: #000; display: block; max-width: 100%; height: auto; 
+            image-rendering: pixelated; border: 5px solid #222; 
+        }
+        #header { position: absolute; top: 15px; color: #00ffff; font-size: 18px; text-align: center; }
+        
+        /* THE MOBILE BUTTONS */
+        #controls { 
+            position: fixed; bottom: 30px; width: 100%; 
+            display: flex; justify-content: space-between; 
+            padding: 0 20px; box-sizing: border-box; 
+        }
+        .move-group { display: flex; gap: 10px; }
+        .btn { 
+            width: 70px; height: 70px; background: rgba(255,255,255,0.15); 
+            border: 2px solid #fff; border-radius: 12px; color: white; 
+            display: flex; justify-content: center; align-items: center; 
+            font-size: 14px; font-weight: bold; -webkit-tap-highlight-color: transparent;
+        }
+        .btn:active { background: rgba(0, 255, 255, 0.4); }
+        .jump-btn { 
+            width: 90px; height: 90px; border-radius: 50%; 
+            background: rgba(255, 0, 77, 0.4); border-color: #ff004d; 
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">DONKEY KONG BUT BAD MOBILE EDITION</div>
+    <canvas id="g"></canvas>
+    
+    <div id="controls">
+        <div class="move-group">
+            <div class="btn" id="L">LEFT</div>
+            <div class="btn" id="R">RIGHT</div>
+            <div class="btn" id="U">UP</div>
+        </div>
+        <div class="btn jump-btn" id="J">JUMP</div>
+    </div>
+
+<script>
+    const cvs = document.getElementById('g'), ctx = cvs.getContext('2d');
+    cvs.width = 448; cvs.height = 512;
+
+    const p = { x: 60, y: 440, vx: 0, vy: 0, j: false, c: false, d: 1 };
+    const platforms = [
+        {x:0, y:470, w:448, s:0}, {x:0, y:395, w:380, s:0.04}, 
+        {x:68, y:310, w:380, s:-0.04}, {x:0, y:225, w:380, s:0.04}, 
+        {x:68, y:140, w:380, s:-0.04}
+    ];
+    const ladders = [{x:350, y:395, h:75}, {x:80, y:310, h:85}, {x:350, y:225, h:85}, {x:80, y:140, h:85}];
+    const input = { L:0, R:0, U:0, J:0 };
+
+    // HIGH PRIORITY TOUCH FOR MOBILE
+    function bind(id, k) {
+        const el = document.getElementById(id);
+        el.addEventListener('touchstart', (e) => { e.preventDefault(); input[k] = 1; }, {passive: false});
+        el.addEventListener('touchend', (e) => { e.preventDefault(); input[k] = 0; }, {passive: false});
+    }
+    ['L','R','U','J'].forEach(k => bind(k, k));
+
+    function loop() {
+        p.vx = input.L ? -3.5 : (input.R ? 3.5 : 0);
+        if(p.vx !== 0) p.d = p.vx > 0 ? 1 : -1;
+
+        let lad = ladders.find(l => p.x+10 > l.x && p.x+10 < l.x+20 && p.y+20 >= l.y && p.y <= l.y+l.h);
+        if (lad) {
+            if (input.U) { p.c = true; p.vy = -3; }
+            else p.vy = 0;
+        } else { p.c = false; p.vy += 0.6; }
+
+        if (input.J && !p.j && !p.c) { p.vy = -9; p.j = true; }
+
+        p.x += p.vx; p.y += p.vy;
+        p.j = true;
+
+        platforms.forEach(plat => {
+            let sy = plat.y + (p.x - plat.x) * plat.s;
+            if (p.x+15 > plat.x && p.x < plat.x+plat.w && p.y+20 > sy && p.y+20 < sy+15) {
+                if (!p.c) { p.y = sy - 20; p.vy = 0; p.j = false; }
+            }
+        });
+
+        // --- DRAW "BAD" GRAPHICS ---
+        ctx.fillStyle = "#000"; ctx.fillRect(0,0,448,512);
+        ctx.fillStyle = "#ff00ff";
+        platforms.forEach(plat => { 
+            let wobble = Math.sin(Date.now()/100) * 3;
+            ctx.fillRect(plat.x, plat.y + wobble, plat.w, 10); 
+        });
+
+        ctx.fillStyle = "#00ffff"; ladders.forEach(l => ctx.fillRect(l.x, l.y, 20, l.h));
+
+        // Square Donkey Kong
+        ctx.fillStyle = "#8b4513"; ctx.fillRect(180, 40, 60, 50);
+        ctx.fillStyle = "#fff"; ctx.fillRect(195, 55, 6, 6); ctx.fillRect(225, 55, 6, 6);
+        ctx.fillStyle = "#000"; ctx.fillRect(197, 57, 2, 2); ctx.fillRect(227, 57, 2, 2);
+
+        // "Bad" Mario
+        ctx.fillStyle = "red"; ctx.fillRect(p.x, p.y, 22, 22);
+        ctx.fillStyle = "#ffcc99"; ctx.fillRect(p.x+(p.d==1?16:2), p.y+4, 4, 4); 
+
+        requestAnimationFrame(loop);
+    }
+    loop();
+</script>
+</body>
+</html>
