@@ -23,3 +23,5 @@ To play this game, make sure JavaScript is enabled in your browser:
 - Apple Watch (watchOS version)
 - Samsung Galaxy Watch (Tizen/Wear OS version)
 - Any smartwatch with an app store
+
+Use it on Safari/Chrome/Edge or any browser and it works offline
