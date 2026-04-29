@@ -7,10 +7,21 @@
   <style>
     body { margin: 0; overflow: hidden; font-family: sans-serif; background: #70c5ce; }
     #gameArea { position: relative; width: 100vw; height: 100vh; display: none; }
-    #bird { position: absolute; width: 40px; height: 40px; background: #f4d03f; border-radius: 50%; left: 50px; top: 200px; z-index: 10; }
+
+    /* Bird now uses transparent bird.png */
+    #bird {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: url("bird.png") no-repeat center center;
+      background-size: contain;
+      left: 50px;
+      top: 200px;
+      z-index: 10;
+    }
+
     .pipe { position: absolute; width: 60px; background: #2ecc71; z-index: 5; }
     #score { position: absolute; top: 10px; left: 10px; font-size: 24px; color: white; z-index: 20; }
-    /* Hide the jump button */
     #jumpBtn { display: none; }
     #intro { position: absolute; width: 100vw; height: 100vh; background: #34495e; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     #intro h1 { font-size: 32px; margin-bottom: 20px; }
@@ -91,10 +102,8 @@
       if (event.code === "Space") {
         event.preventDefault(); // prevent page scrolling
         if (introScreen.style.display !== "none") {
-          // If intro is visible, start game
           startGame();
         } else {
-          // Otherwise jump
           jump();
         }
       }
